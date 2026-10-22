@@ -1,33 +1,47 @@
+/*
+  Look: a controlled quality record. Cool bench-grey paper, white forms with a
+  header band, signature-blue ink for actions, and severity shown as a stamp.
+*/
 :root {
-  --bg: #f6f7f9;
+  --bg: #eef1f2;
   --card: #ffffff;
-  --ink: #1b2430;
-  --muted: #5d6877;
-  --line: #dfe3ea;
-  --brand: #1f5f8b;
+  --band: #e3e8eb;
+  --field: #fafbfb;
+  --ink: #1a2328;
+  --muted: #55626a;
+  --line: #c5ced3;
+  --brand: #1f3a9e;
   --brand-ink: #ffffff;
+  --note-bg: #e8ecf8;
+  --focus: #1f3a9e;
   --crit: #b3261e;
-  --crit-bg: #fdecea;
-  --major: #9a5b00;
-  --major-bg: #fff3df;
-  --minor: #236a3b;
+  --crit-bg: #fceeec;
+  --major: #8a5300;
+  --major-bg: #fff3d9;
+  --minor: #1e6b3a;
   --minor-bg: #e7f5ec;
+  --font-body: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-head: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #11161c;
-    --card: #1a212a;
-    --ink: #e8edf3;
-    --muted: #9aa6b4;
-    --line: #2b3541;
-    --brand: #5aa6d6;
-    --brand-ink: #0b1218;
-    --crit: #ff8f86;
+    --bg: #0f1518;
+    --card: #162025;
+    --band: #1d2a30;
+    --field: #111a1e;
+    --ink: #e6ecef;
+    --muted: #93a1aa;
+    --line: #2b3940;
+    --brand: #93a9ff;
+    --brand-ink: #0c1230;
+    --note-bg: #1a2240;
+    --focus: #93a9ff;
+    --crit: #ff9087;
     --crit-bg: #3a1c19;
-    --major: #ffc36b;
-    --major-bg: #3a2a10;
-    --minor: #7fd39a;
+    --major: #ffc66e;
+    --major-bg: #392a10;
+    --minor: #86d79f;
     --minor-bg: #16301f;
   }
 }
@@ -40,97 +54,142 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  line-height: 1.5;
+  font-family: var(--font-body);
+  line-height: 1.55;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
 }
 
 .wrap {
-  max-width: 980px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 24px 16px 64px;
+  padding: 32px 16px 72px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-head);
+  letter-spacing: -0.01em;
 }
 
 h1 {
-  font-size: 1.6rem;
-  margin: 0 0 4px;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 8px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--ink);
 }
 
 h2 {
   font-size: 1.15rem;
+  font-weight: 700;
   margin: 0 0 8px;
 }
 
 h3 {
   font-size: 0.95rem;
-  margin: 16px 0 6px;
+  font-weight: 600;
+  margin: 18px 0 6px;
 }
 
 .sub {
   color: var(--muted);
   margin: 0 0 16px;
+  max-width: 62ch;
 }
 
 .banner {
-  background: var(--major-bg);
-  color: var(--major);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 0.85rem;
-  margin-bottom: 16px;
+  background: var(--note-bg);
+  color: var(--ink);
+  border-left: 4px solid var(--brand);
+  border-radius: 0 4px 4px 0;
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  margin-bottom: 20px;
+  max-width: 78ch;
 }
 
+/* Steps read as joined tabs on a record, not loose pills. */
 .steps {
   display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
   flex-wrap: wrap;
+  margin-bottom: 20px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--card);
+  overflow: hidden;
 }
 
 .step {
-  border: 1px solid var(--line);
-  background: var(--card);
+  flex: 1 1 0;
+  min-width: 160px;
+  border: 0;
+  border-right: 1px solid var(--line);
+  background: transparent;
   color: var(--ink);
-  border-radius: 999px;
-  padding: 6px 14px;
-  font-size: 0.9rem;
+  font: inherit;
+  font-family: var(--font-head);
+  font-weight: 600;
+  padding: 10px 14px;
+  text-align: left;
   cursor: pointer;
+}
+
+.step:last-child {
+  border-right: 0;
 }
 
 .step[aria-current="step"] {
   background: var(--brand);
   color: var(--brand-ink);
-  border-color: var(--brand);
 }
 
 .step:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
 .card {
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 16px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+/* The first heading in a card becomes the form's header band. */
+.card > h2:first-child {
+  margin: -16px -16px 14px;
+  padding: 10px 16px;
+  background: var(--band);
+  border-bottom: 1px solid var(--line);
+  border-radius: 3px 3px 0 0;
 }
 
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 14px;
 }
 
 @media (max-width: 640px) {
   .grid {
     grid-template-columns: 1fr;
   }
+  h1 {
+    font-size: 1.6rem;
+  }
 }
 
 label {
   display: block;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 600;
   color: var(--muted);
   margin-bottom: 4px;
 }
@@ -141,10 +200,17 @@ select {
   width: 100%;
   font: inherit;
   color: var(--ink);
-  background: var(--bg);
+  background: var(--field);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-bottom: 2px solid var(--muted);
+  border-radius: 3px 3px 0 0;
   padding: 8px 10px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-bottom-color: var(--brand);
 }
 
 textarea {
@@ -167,10 +233,11 @@ button.primary,
 button.secondary,
 button.danger {
   font: inherit;
-  border-radius: 8px;
+  font-weight: 600;
+  border-radius: 3px;
   padding: 8px 16px;
   cursor: pointer;
-  border: 1px solid var(--brand);
+  border: 1.5px solid var(--brand);
 }
 
 button.primary {
@@ -190,16 +257,24 @@ button.danger {
 }
 
 button:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
+/* Severity is shown as a rubber stamp. This is the one memorable element. */
 .badge {
   display: inline-block;
-  border-radius: 999px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
   padding: 2px 12px;
-  font-weight: 600;
-  font-size: 0.85rem;
+  border: 2px solid currentColor;
+  border-radius: 4px;
+  outline: 1px solid currentColor;
+  outline-offset: 2px;
+  margin: 3px;
+  transform: rotate(-2deg);
 }
 
 .badge.Critical {
@@ -231,14 +306,16 @@ table {
 th,
 td {
   text-align: left;
-  padding: 6px 8px;
+  padding: 7px 10px;
   border-bottom: 1px solid var(--line);
   vertical-align: top;
 }
 
 th {
-  color: var(--muted);
+  font-family: var(--font-head);
   font-weight: 600;
+  color: var(--muted);
+  background: var(--band);
 }
 
 .muted {
@@ -250,10 +327,12 @@ th {
 }
 
 .ai {
-  border-left: 3px solid var(--brand);
-  padding-left: 12px;
-  margin-top: 8px;
+  border-left: 4px solid var(--brand);
+  background: var(--note-bg);
+  padding: 10px 14px;
+  margin-top: 10px;
   white-space: pre-wrap;
+  max-width: 78ch;
 }
 
 .error {
